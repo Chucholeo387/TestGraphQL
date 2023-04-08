@@ -44,6 +44,21 @@ const getOneCharacter = async (id)=>{
 
 }
 
+const registerUserDb = async (username, password, password_repeat)=>{
+    const response = await axios.post("http://localhost:3000/register", {
+        username: username,
+        password: password,
+        password_repeat: password_repeat,
+    })
+    console.log(response.data.msg)
+    return response.data.msg
+}
+
+const getProducts = async () =>{
+    const response =  await axios.get("http://localhost:3000/testgraph")
+    return response.data
+}
+
 
 // A map of functions which return data for the schema.
 const resolvers = {
@@ -63,11 +78,31 @@ const resolvers = {
         oneCharacter: (root, args) =>{
             const { id } = args
             return getOneCharacter(id)
+        } ,
+        getProducts: () =>{
+            return getProducts()
+        }      
+},
+    Mutation:{
+        registerUser: (root, {input}) =>{
+            const {username, password, password_repeat} = input
+            return registerUserDb (username, password, password_repeat )
+        },
+        registerUser2: () =>{
+            return registerUserDb ("Petra", "123456", "123456")
+        },
+        nuevoUsuario: (root, {input})=>{
+            const {username, password, password_repeat} = input
+            console.log(username)
+            console.log(password)
+            console.log(password_repeat)
+            
+
+
+          
         }
-  
-    
-        
-}
+
+    }
 }
 
 

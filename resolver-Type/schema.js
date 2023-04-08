@@ -6,6 +6,24 @@ type Address {
     city: String
 }
 
+type products{
+    id: ID
+    name: String
+    price: Int
+}
+
+type msg {
+    msg: String
+}
+
+input newUser {
+    username: String!
+    password: String!
+    password_repeat: String!
+}
+
+
+
 type Person {
     name: String
     phone: String
@@ -27,6 +45,12 @@ input AddressInput{
     city: String
 }
 
+input usuarioInput{
+    username: String!
+    password: String!
+    password_repeat: String!
+}
+
 type Query {
     personCount: Int
     allPersons: [Person]
@@ -34,7 +58,15 @@ type Query {
     address(input: AddressInput): [Address]
     allCharacters: [character]
     oneCharacter(id: ID): character
+    getProducts: [products]
 }
+
+type Mutation {
+    registerUser (input: newUser ) : String
+    registerUser2 : msg
+    nuevoUsuario (input: usuarioInput) : String
+}
+
 `
 
 module.exports = typeDefs
