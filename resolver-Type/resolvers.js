@@ -54,8 +54,24 @@ const registerUserDb = async (username, password, password_repeat)=>{
     return response.data.msg
 }
 
+const login = async (username, password)=>{
+    const response = await axios.post("http://localhost:3000/login", {
+        username: username,
+        password: password,
+     
+    })
+    console.log(response)
+    return response.data
+}
+
 const getProducts = async () =>{
     const response =  await axios.get("http://localhost:3000/testgraph")
+    return response.data
+}
+
+const getProducts2 = async () =>{
+    const response =  await axios.get("http://localhost:3000/secretpage")
+    console.log(response.data)
     return response.data
 }
 
@@ -81,7 +97,10 @@ const resolvers = {
         } ,
         getProducts: () =>{
             return getProducts()
-        }      
+        },
+        getProducts2: () =>{
+            return getProducts2()
+        }    
 },
     Mutation:{
         registerUser: (root, {input}) =>{
@@ -96,10 +115,12 @@ const resolvers = {
             console.log(username)
             console.log(password)
             console.log(password_repeat)
-            
 
-
-          
+        },
+        loginUsuario: (root, {input})=>{
+            const {username, password} = input
+           
+            return login (username, password)
         }
 
     }
